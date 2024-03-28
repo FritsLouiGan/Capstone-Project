@@ -1,3 +1,17 @@
+<?php
+    include "conn.php";
+    $ref_id = $_GET['id'];
+
+    $getdata = mysqli_query($conn, "SELECT * FROM sheesh WHERE id='$ref_id'");
+
+    while($d=mysqli_fetch_object($getdata)){
+        $name = $d -> name;
+        $email = $d -> email;
+        $pass = $d -> password;
+
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,15 +44,6 @@
   <link href="assets/css/style.css" rel="stylesheet">
 
   <style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-image: url("assets/img/tech7.gif");
-        background-size: 1550px 800px;
-        background-repeat: no-repeat;
-        background-image: center;
-        
-    }
     #sidebar,
     #header {
       background-color: #81b06f; /* Green color */
@@ -74,7 +79,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="dashboard3.html" class="logo d-flex align-items-center">
+      <a href="dashboard.php" class="logo d-flex align-items-center">
         <img src="assets/img/UI-logo.jpg" alt="Profile" class="rounded-circle">
         <span class="d-none d-lg-block">Registrar Appointment</span>
       </a>
@@ -94,7 +99,6 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/PL.png" alt="Profile" class="rounded-circle"><span class="d-none d-md-block dropdown-toggle ps-2"></span>
-            
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -157,7 +161,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="dashboard3.html">
+        <a class="nav-link collapsed" href="dashboard.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -169,38 +173,32 @@
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Students Records</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="tables-nav" class="nav-content collapse show " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="student-book.php">
-              <i class="bi bi-circle"></i><span>Student Book Date/Time</span>
-            </a>
-          </li>
-          <li>
-            <a href="data2.php">
+            <a href="data.php">
               <i class="bi bi-circle"></i><span>Data Information</span>
             </a>
           </li>
           <li>
-            <a href="student-appointment2.php">
+            <a href="student-appointment.html">
               <i class="bi bi-circle"></i><span>Student Appointment</span>
             </a>
           </li>
           <li>
-            <a href="print.php">
+            <a href="print2.html">
               <i class="bi bi-circle"></i><span>Student Data Print</span>
             </a>
           </li>
           <li>
-            <a href="img-requirements.php">
-              <i class="bi bi-circle"></i><span>Student Requirements</span>
+            <a href="adminpov1.php" class="active">
+              <i class="bi bi-circle"></i><span>Update Student account</span>
             </a>
           </li>
         </ul>
       </li><!-- End Tables Nav -->
 
-
       <li class="nav-item">
-        <a class="nav-link collapsed" href="registrar-profile.html">
+        <a class="nav-link collapsed" href="admin-profile.html">
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
@@ -210,29 +208,50 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>
-    </div><!-- End Page Title -->
-
     <section class="section dashboard">
-      <div class="row">
+      <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-lg-7">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Update Students Account</h5>
+                <form action="process.php?id=<?php echo $ref_id?>" method="POST">
+                  <div class="mb-3">
+                    <label for="up_name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="up_name" name="up_name" value="<?php echo $name; ?>" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="up_mail" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="up_mail" name="up_mail" value="<?php echo $email; ?>" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="up_pass" class="form-label">Password</label>
+                    <input type="text" class="form-control" id="up_pass" name="up_pass" value="<?php echo $pass; ?>" required>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-success" name="update">UPDATE</button>
+                    <a href="adminpov1.php"><button type="button" class="btn btn-danger">Back</button></a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        <!-- Left side columns -->
-        <div class="col-lg-8">
-          
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+<!-- End Right side columns -->
 
-           
       </div>
     </section>
 
   </main><!-- End #main -->
+
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

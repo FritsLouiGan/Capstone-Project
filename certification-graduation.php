@@ -1,3 +1,54 @@
+<?php
+require 'conn.php';
+if(isset($_POST["submit"])){
+  $name = $_POST["name"];
+  if($_FILES["image"]["error"] == 4){
+    echo
+    "<script> alert('Image Does Not Exist'); </script>"
+    ;
+  }
+  else{
+    $fileName = $_FILES["image"]["name"];
+    $fileSize = $_FILES["image"]["size"];
+    $tmpName = $_FILES["image"]["tmp_name"];
+
+    $validImageExtension = ['jpg', 'jpeg', 'png'];
+    $imageExtension = explode('.', $fileName);
+    $imageExtension = strtolower(end($imageExtension));
+    if ( !in_array($imageExtension, $validImageExtension) ){
+      echo
+      "
+      <script>
+        alert('Invalid Image Extension');
+      </script>
+      ";
+    }
+    else if($fileSize > 1000000){
+      echo
+      "
+      <script>
+        alert('Image Size Is Too Large');
+      </script>
+      ";
+    }
+    else{
+      $newImageName = uniqid();
+      $newImageName .= '.' . $imageExtension;
+
+      move_uploaded_file($tmpName, 'img/' . $newImageName);
+      $query = "INSERT INTO tb_upload VALUES('', '$name', '$newImageName')";
+      mysqli_query($conn, $query);
+      echo
+      "
+      <script>
+        alert('Successfully Added');
+        document.location.href = 'dashboard2.html';
+      </script>
+      ";
+    }
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +56,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Contact</title>
+  <title>Requirements</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -28,7 +79,10 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
 </head>
+
 
 <body>
 
@@ -36,11 +90,11 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="dashboard.html" class="logo d-flex align-items-center">
+      <a href="dashboard2.html" class="logo d-flex align-items-center">
         <img src="assets/img/Ui-logo.jpg" alt="">
         <span class="d-none d-lg-block">Registrar Appointment</span>
       </a>
-      <i class="bi bi-caret-left toggle-sidebar-btn"></i>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
     <nav class="header-nav ms-auto">
@@ -55,8 +109,8 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/anu.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">Dark Web</span>
+            <img src="assets/img/Unknown.jpg" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">Unknown</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -69,7 +123,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="admin-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -79,7 +133,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="admin-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
@@ -118,62 +172,50 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="dashboard.html">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
+      <!-- End Dashboard Nav -->
 
-      <!-- End Forms Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Students Records</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="data.php">
-              <i class="bi bi-circle"></i><span>Data Information</span>
-            </a>
-          </li>
-          <li>
-            <a href="student-appointment.html">
-              <i class="bi bi-circle"></i><span>Student Appointment</span>
-            </a>
-          </li>
-          <li>
-            <a href="print2.html">
-              <i class="bi bi-circle"></i><span>Student Data Print</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
-
-      <!-- End Icons Nav -->
-
+      <!-- End Components Nav -->
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="admin-profile.html">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="student-information.php">
+              <i class="bi bi-circle"></i><span>Student Fillup</span>
+            </a>
+          </li>
+          <li>
+            <a href="Appointment.php">
+              <i class="bi bi-circle"></i><span>Appointment</span>
+            </a>
+          </li>         
+        </ul>
+      </li><!-- End Forms Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
+        <a class="nav-link collapsed" href="pages-faq2.html">
           <i class="bi bi-question-circle"></i>
           <span>F.A.Q</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" href="pages-contact.html">
+        <a class="nav-link collapsed" href="pages-contact2.html">
           <i class="bi bi-envelope"></i>
           <span>Contact</span>
         </a>
-      </li><!-- End Blank Page Nav -->
+      </li><!-- End Contact Page Nav -->
+
 
     </ul>
 
@@ -182,92 +224,64 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Contact</h1>
+      <h1><p class="text-light-emphasis">Certification of Graduation</p></h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Pages</li>
-          <li class="breadcrumb-item active">Contact</li>
+          <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
-    <section class="section contact">
+    <section class="section dashboard">
+      <div class="row">
 
-      <div class="row gy-4">
-
-        <div class="col-xl-6">
-
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="info-box card">
-                <i class="bi bi-geo-alt"></i>
-                <h3>Address</h3>
-                <p>Rizal Street,<br>Iloilo city Proper, 5000 Iloilo</p>
-              </div>
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+            <div class="container mt-5">
+                <form class="needs-validation" action="" method="post" autocomplete="off" enctype="multipart/form-data" novalidate>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                    <div class="invalid-feedback">Please enter a name.</div>
+                </div>
+                <div class="form-group">
+                    <label for="image">form 137</label>
+                    <input type="file" class="form-control-file" id="image" name="image" accept=".jpg, .jpeg, .png" required>
+                    <div class="invalid-feedback">Please select an image file.</div>
+                </div>
+                <div class="form-group">
+                    <label for="image">gwa</label>
+                    <input type="file" class="form-control-file" id="image" name="form137" accept=".jpg, .jpeg, .png" required>
+                    <div class="invalid-feedback">Please select an image file.</div>
+                </div>
+                <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                </form>
+                <br>
+                
             </div>
-            <div class="col-lg-6">
-              <div class="info-box card">
-                <i class="bi bi-telephone"></i>
-                <h3>Call Us</h3>
-                <p>+63 967 251 2128<br>+63 985 188 8721</p>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="info-box card">
-                <i class="bi bi-envelope"></i>
-                <h3>Email Us</h3>
-                <p>info.ui@phinmaed.com<br>inquiries.registrar.ui@phinmaed.com</p>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="info-box card">
-                <i class="bi bi-clock"></i>
-                <h3>Open Hours</h3>
-                <p>Monday - Friday<br>7:30AM - 05:00PM</p>
-              </div>
-            </div>
-          </div>
 
-        </div>
-
-        <div class="col-xl-6">
-          <div class="card p-4">
-            <form action="forms/contact.php" method="post" class="php-email-form">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-                </div>
-
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required>
-                </div>
-
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required>
-                </div>
-
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div>
-
-        </div>
+            
+            <script>
+                // Enable Bootstrap validation
+                (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    var forms = document.getElementsByClassName('needs-validation');
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                    });
+                }, false);
+                })();
+            </script>
 
       </div>
-
     </section>
 
   </main><!-- End #main -->
@@ -278,17 +292,15 @@
       &copy; Copyright <strong><span>Bootstrap</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
       Designed by <a href="https://ibb.co/rpNQgNy">DarkWeb</a>
     </div>
-  </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  </footer>
+  
 
   <!-- Vendor JS Files -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/chart.js/chart.umd.js"></script>

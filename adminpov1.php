@@ -1,3 +1,7 @@
+<?php
+        include "conn.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,15 +34,6 @@
   <link href="assets/css/style.css" rel="stylesheet">
 
   <style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-image: url("assets/img/tech7.gif");
-        background-size: 1550px 800px;
-        background-repeat: no-repeat;
-        background-image: center;
-        
-    }
     #sidebar,
     #header {
       background-color: #81b06f; /* Green color */
@@ -74,7 +69,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="dashboard3.html" class="logo d-flex align-items-center">
+      <a href="dashboard.php" class="logo d-flex align-items-center">
         <img src="assets/img/UI-logo.jpg" alt="Profile" class="rounded-circle">
         <span class="d-none d-lg-block">Registrar Appointment</span>
       </a>
@@ -94,7 +89,6 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/PL.png" alt="Profile" class="rounded-circle"><span class="d-none d-md-block dropdown-toggle ps-2"></span>
-            
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -157,7 +151,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="dashboard3.html">
+        <a class="nav-link collapsed" href="dashboard.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -169,38 +163,32 @@
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Students Records</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="tables-nav" class="nav-content collapse show " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="student-book.php">
-              <i class="bi bi-circle"></i><span>Student Book Date/Time</span>
-            </a>
-          </li>
-          <li>
-            <a href="data2.php">
+            <a href="data.php">
               <i class="bi bi-circle"></i><span>Data Information</span>
             </a>
           </li>
           <li>
-            <a href="student-appointment2.php">
+            <a href="student-appointment.html">
               <i class="bi bi-circle"></i><span>Student Appointment</span>
             </a>
           </li>
           <li>
-            <a href="print.php">
+            <a href="print2.html">
               <i class="bi bi-circle"></i><span>Student Data Print</span>
             </a>
           </li>
           <li>
-            <a href="img-requirements.php">
-              <i class="bi bi-circle"></i><span>Student Requirements</span>
+            <a href="adminpov1.php" class="active">
+              <i class="bi bi-circle"></i><span>Update Student account</span>
             </a>
           </li>
         </ul>
       </li><!-- End Tables Nav -->
 
-
       <li class="nav-item">
-        <a class="nav-link collapsed" href="registrar-profile.html">
+        <a class="nav-link collapsed" href="admin-profile.html">
           <i class="bi bi-person"></i>
           <span>Profile</span>
         </a>
@@ -212,27 +200,62 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
+      <h1>Update</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="dashboard.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item active">Update</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-      <div class="row">
+    
+    <h1 class="text-center mt-5">University of Iloilo</h1>
+    <div class="container">
+        <table class="table datatable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $getdata = mysqli_query($conn, "SELECT * FROM sheesh");
+                while($row = mysqli_fetch_array($getdata)){
+                ?>
+                <tr>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['email']; ?></td>
+                    <td><?php echo $row['password'] ?></td>
+                    <td><a href="up.php?id=<?php echo $row['id'];?>" class="btn btn-success">Update</a></td>
+                    <td><a href="del.php?id=<?php echo $row['id'];?>" class="btn btn-danger">Delete</a></td>
+                </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+    </main>
 
-        <!-- Left side columns -->
-        <div class="col-lg-8">
-          
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+<!-- End Right side columns -->
 
-           
       </div>
     </section>
 
   </main><!-- End #main -->
+
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

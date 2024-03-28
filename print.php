@@ -18,6 +18,7 @@ if (empty($_SESSION)) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,9 +77,6 @@ if (empty($_SESSION)) {
       color: #fff; /* Text color: white */
     }
   </style>
-
-
-
 </head>
 
 <body>
@@ -91,20 +89,16 @@ if (empty($_SESSION)) {
         <img src="assets/img/UI-logo.jpg" alt="Profile" class="rounded-circle">
         <span class="d-none d-lg-block">Registrar Appointment</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
-        <!-- End Messages Nav -->
-
+            <a class="nav-link nav-icon" href="#">
+              <i class="bi bi-printer" onclick="window.print()"></i>
+              <span class="badge bg-success badge-number"></span>
+            </a><!-- End Messages Icon -->
+         
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -158,7 +152,8 @@ if (empty($_SESSION)) {
             </li>
 
           </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+        </li>
+        <!-- End Profile Nav -->
 
       </ul>
     </nav><!-- End Icons Navigation -->
@@ -190,7 +185,7 @@ if (empty($_SESSION)) {
             </a>
           </li>
           <li>
-            <a href="data2.php"  class="active">
+            <a href="data2.php">
               <i class="bi bi-circle"></i><span>Data Information</span>
             </a>
           </li>
@@ -200,7 +195,7 @@ if (empty($_SESSION)) {
             </a>
           </li>
           <li>
-            <a href="print.php">
+            <a href="print.php" class="active">
               <i class="bi bi-circle"></i><span>Student Data Print</span>
             </a>
           </li>
@@ -225,108 +220,149 @@ if (empty($_SESSION)) {
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Data Tables</h1>
+      <h1>Student form</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="dashboard3.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Data</li>
+          <li class="breadcrumb-item">Forms</li>
+          <li class="breadcrumb-item active">Info</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
+    
 
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
-          
-          
-        <h5 class="card-title">Datatables</h5>
-          <table class="table datatable">
-            <thead>
-              <tr>
-                <th>LRN</th>
-                <th>PAEC ESC</th>
-                <th scope="col">Applicant no.</th>
-                <th data-type="date" data-format="YYYY/DD/MM">Date</th>
-                <th>Course</th>
-                <th>Major</th>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>Middle Name</th>
-                <th data-type="date" data-format="YYYY/DD/MM">Date of Birth</th>
-                <th>Sex</th>
-                <th>Place of Birth</th>
-                <th>Civil Status</th>
-                <th>Citizenship</th>
-                <th>Email Address</th>
-                <th>Religion</th>
-                <th>Permanent Address</th>
-                <th>Mother's Name</th>
-                <th>Father's Name</th>
-                <th>Contact no.</th>
-                <th>Elementary</th>
-                <th>Elementary year</th>
-                <th>High School</th>
-                <th>High School year</th>
-                <th>College</th>
-                <th>College year</th>
-                <th>Name</th>
-                <th>Relationship</th>
-                <th>address</th>
-                <th>Contact no.</th>
-              </tr>
-            </thead>
-            <tbody>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Student info</h5>
+              <a class="nav-link nav-icon" href="#">
+                <i class="bi bi-printer" onclick="window.print()"></i>
+                <span class="badge bg-success badge-number"></span>
+              </a>
+
+              <!-- General Form Elements -->
               <?php
               $getdata = mysqli_query($conn, "SELECT * FROM info1");
               while ($row = mysqli_fetch_array($getdata)) {
-              ?>
-                <tr>
-                  <td><?php echo $row['lrn']; ?></td>
-                  <td><?php echo $row['peacesc']; ?></td>
-                  <td><?php echo $row['applicant_no.']; ?></td>
-                  <td><?php echo $row['date']; ?></td>
-                  <td><?php echo $row['course']; ?></td>
-                  <td><?php echo $row['major']; ?></td>
-                  <td><?php echo $row['lastname']; ?></td>
-                  <td><?php echo $row['firstname']; ?></td>
-                  <td><?php echo $row['middlename']; ?></td>
-                  <td><?php echo $row['date_of_birth']; ?></td>
-                  <td><?php echo $row['sex']; ?></td>
-                  <td><?php echo $row['place_of_birth']; ?></td>
-                  <td><?php echo $row['civilstatus']; ?></td>
-                  <td><?php echo $row['citizenship']; ?></td>
-                  <td><?php echo $row['email_address']; ?></td>
-                  <td><?php echo $row['religion']; ?></td>
-                  <td><?php echo $row['permanent_adress']; ?></td>
-                  <td><?php echo $row['mothers_name']; ?></td>
-                  <td><?php echo $row['fathers_name']; ?></td>
-                  <td><?php echo $row['contact_number']; ?></td>
-                  <td><?php echo $row['elementary']; ?></td>
-                  <td><?php echo $row['elementary_year']; ?></td>
-                  <td><?php echo $row['high_school']; ?></td>
-                  <td><?php echo $row['high_school_year']; ?></td>
-                  <td><?php echo $row['college']; ?></td>
-                  <td><?php echo $row['college_year']; ?></td>
-                  <td><?php echo $row['name']; ?></td>
-                  <td><?php echo $row['relationship']; ?></td>
-                  <td><?php echo $row['address']; ?></td>
-                  <td><?php echo $row['contact_no.']; ?></td>
-                </tr>
-              <?php } ?>
-            </tbody>
-          </table>
+                  ?>
+                  <form class="row g-3">
+                    <div class="input-group mb-3">                                       
+                        <span class="input-group-text">LRN:</span>
+                        <span class="form-control"><td><?php echo $row['lrn']; ?></td></span>
+                        <span class="input-group-text">PAEC ESC:</span>
+                        <span class="form-control"><td><?php echo $row['peacesc']; ?></td></span>                
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Applicant no.:</span>
+                        <span class="form-control"><td><?php echo $row['applicant_no.']; ?></td></span>                    
+                        <span class="input-group-text">Date:</span>
+                        <span class="form-control"><td><?php echo $row['date']; ?></td></span>  
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">COURSE:</span>
+                        <span class="form-control"><td><?php echo $row['course']; ?></td></span>  
+                        <span class="input-group-text">Major:</span>
+                        <span class="form-control"><td><?php echo $row['major']; ?></td></span>                      
+                    </div>
+                    <div class="input-group mb-3">     
+                        <span class="input-group-text">Last Name:</span>
+                        <span class="form-control"><td><?php echo $row['lastname']; ?></td></span>
+                        <span class="input-group-text">First Name:</span>
+                        <span class="form-control"><td><?php echo $row['firstname']; ?></td></span> 
+                        <span class="input-group-text">Middle Name:</span>
+                        <span class="form-control"><td><?php echo $row['middlename']; ?></td></span>                            
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Date of Birth:</span>
+                        <span class="form-control"><td><?php echo $row['date_of_birth']; ?></td></span>                    
+                        <span class="input-group-text">Sex:</span>
+                        <span class="form-control"><td><?php echo $row['sex']; ?></td></span>              
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Place of Birth:</span>
+                        <span class="form-control"><td><?php echo $row['place_of_birth']; ?></td></span>   
+                        <span class="input-group-text">Civil Status:</span>
+                        <span class="form-control"><td><?php echo $row['civilstatus']; ?></td></span>                                     
+                    </div>
+                    <div class="input-group mb-3">  
+                        <span class="input-group-text">Citizenship:</span>
+                        <span class="form-control"><td><?php echo $row['citizenship']; ?></td></span>
+                        <span class="input-group-text">Email Address:</span>
+                        <span class="form-control"><td><?php echo $row['email_address']; ?></td></span>                    
+                    </div>
+                    <div class="input-group mb-3"> 
+                        <span class="input-group-text">Religion:</span>
+                        <span class="form-control"><td><?php echo $row['religion']; ?></td></span>   
+                        <span class="input-group-text">Permanent Address:</span>
+                        <span class="form-control"><td><?php echo $row['permanent_adress']; ?></td></span>                   
+                    </div>      
+                    <div class="input-group mb-3">          
+                        <span class="input-group-text">Mother's name:</span>
+                        <span class="form-control"><td><?php echo $row['mothers_name']; ?></td></span>
+                        <span class="input-group-text">Father's name:</span>
+                        <span class="form-control"><td><?php echo $row['fathers_name']; ?></td></span>
+                        <span class="input-group-text">Contact no.:</span>
+                        <span class="form-control"><td><?php echo $row['contact_number']; ?></td></span>
+                    </div>   
+                    <div class="input-group mb-3"> 
+                        <span class="input-group-text">Elementary:</span>
+                        <span class="form-control"><td><?php echo $row['elementary']; ?></td></span>                 
+                        <span class="input-group-text">Elementary year:</span>
+                        <span class="form-control"><td><?php echo $row['elementary_year']; ?></td></span>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">High School:</span>
+                        <span class="form-control"><td><?php echo $row['high_school']; ?></td></span> 
+                        <span class="input-group-text">High School year:</span>
+                        <span class="form-control"><td><?php echo $row['high_school_year']; ?></td></span>  
+                    </div>       
+                    <div class="input-group mb-3">           
+                        <span class="input-group-text">College:</span>
+                        <span class="form-control"><td><?php echo $row['college']; ?></td></span>
+                        <span class="input-group-text">College year:</span>
+                        <span class="form-control"><td><?php echo $row['college_year']; ?></td></span>  
+                    </div>  
+                              
+                    <div class="row mb-3">                  
+                      <div class="col-sm-13">
+                        <input type="text" class="form-control" value="Person to contact incase of emergency" disabled>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Name:</span>
+                        <span class="form-control"><td><?php echo $row['name']; ?></td></span>                    
+                        <span class="input-group-text">Relationship:</span>
+                        <span class="form-control"><td><?php echo $row['relationship']; ?></td></span>                
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Address:</span>
+                        <span class="form-control"><td><?php echo $row['address']; ?></td></span>                    
+                        <span class="input-group-text">Contact no.:</span>
+                        <span class="form-control"><td><?php echo $row['contact_no.']; ?></td></span>                
+                    </div>
+                    
 
-              <!-- End Table with stripped rows -->
-
-            </div>
+                  </form><!-- End General Form Elements -->
+                <?php } ?>
+                </div>
+             
           </div>
 
         </div>
+
+        
       </div>
+      
     </section>
 
-  </main><!-- End #main -->
+  </main>
+
+ 
+
+ <!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -334,6 +370,7 @@ if (empty($_SESSION)) {
       &copy; Copyright <strong><span>Bootstrap</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
+      Designed by <a href="https://ibb.co/rpNQgNy">DarkWeb</a>
     </div>
   </footer><!-- End Footer -->
 

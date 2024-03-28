@@ -29,14 +29,32 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <style>
-    body {
-        margin: 0;
-        padding: 0;
-        background-image: url("assets/img/tech16.gif");
-        background-size: 1550px 800px;
-        background-repeat: no-repeat;
-        background-image: center;
-        
+ 
+    #sidebar,
+    #header {
+      background-color: #81b06f; /* Green color */
+      color: white; /* Text color */
+    }
+    /* Adjusted text color and styles for nav links */
+    .sidebar-nav .nav-link {
+      color: #fff; /* Text color: white */
+      font-size: 16px; /* Font size */
+      font-weight: 500; /* Font weight: semi-bold */
+      text-transform: uppercase; /* Uppercase text */
+      letter-spacing: 1px; /* Letter spacing */
+      padding: 10px; /* Padding around text */
+      transition: all 0.3s ease; /* Smooth transition */
+    }
+
+    /* Hover effect for nav links */
+    .sidebar-nav .nav-link:hover {
+      background-color: rgba(255, 255, 255, 0.1); /* Transparent white background on hover */
+    }
+
+    /* Style for active nav link */
+    .sidebar-nav .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.2); /* Slightly more opaque white background for active link */
+      color: #fff; /* Text color: white */
     }
   </style>
 
@@ -51,18 +69,11 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/Ui-logo.jpg" alt="">
+        <img src="assets/img/UI-logo.jpg" alt="Profile" class="rounded-circle">
         <span class="d-none d-lg-block">Registrar Appointment</span>
       </a>
       <i class="bi bi-caret-left toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
-
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -72,121 +83,6 @@
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-dots"></i>
-            <span class="badge bg-primary badge-number">1</span>
-          </a><!-- End Notification Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 1 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h5>Dark Web</h5>
-                <p>Hello dear Welcome to our Website, Phinma UI Registrar Booking pro i hope this website can help you to easy appoint your needed in school.</p>
-                <h4>Thank You!</h4>
-              </div>
-            </li>
-
-            
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-people"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              Hello we Are the creator of this website
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/jules.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Jules Surriga</h4>
-                  <p>Hello world</p>
-                  <p>Web Designer</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/uli.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Ulysses Nava</h4>
-                  <p>Hello World</p>
-                  <p>Web Designer</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/frits.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Frits Loui Gan</h4>
-                  <p>Hello World</p>
-                  <p>Web Designer</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
-
-          </ul><!-- End Messages Dropdown Items -->
-
-        </li><!-- End Messages Nav -->
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#">
-            <img src="assets/img/Unknown.jpg" alt="Profile" class="rounded-circle">
-            <span>Unknown</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
       </ul>
     </nav><!-- End Icons Navigation -->
 
@@ -212,12 +108,7 @@
         <ul id="register-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="Student-register.php">
-              <i class="bi bi-circle"></i><span>Students Register</span>
-            </a>
-          </li>
-          <li>
-            <a href="register.php">
-              <i class="bi bi-circle"></i><span>Register</span>
+              <i class="bi bi-circle"></i><span>Register Here</span>
             </a>
           </li>
         </ul><!-- End Register Page Nav -->
@@ -242,6 +133,11 @@
               <i class="bi bi-circle"></i><span>Admin Login</span>
             </a>
           </li>
+          <li>
+            <a href="dean-login.php">
+              <i class="bi bi-circle"></i><span>Dean Login</span>
+            </a>
+          </li>
         </ul>   <!-- End Login Page Nav -->
 
       <!-- End Blank Page Nav -->
@@ -253,7 +149,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1><p class="text-light-emphasis">Dashboard</p></h1>
+      <h1><p class="text-light-emphasis">PHINMA EDUCATION</p></h1>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
@@ -285,13 +181,9 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Bootstrap</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>Darkweb</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
       Designed by <a href="https://ibb.co/rpNQgNy">DarkWeb</a>
     </div>
   </footer>
